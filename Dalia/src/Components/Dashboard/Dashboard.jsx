@@ -18,9 +18,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../ListItems/ListItems';
-import Chart from '../Chart/Chart';
-import Deposits from '../Deposite/Deposite';
-import Orders from '../Orders/orders';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+// import Chart from '../Chart/Chart';
+// import Deposits from '../Deposite/Deposite';
+// import Orders from '../Orders/orders';
 
 function Copyright(props) {
   return (
@@ -118,7 +119,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              ملخص تعريفي للطلاب
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -128,6 +129,7 @@ function DashboardContent() {
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
+
           <Toolbar
             sx={{
               display: 'flex',
@@ -143,10 +145,11 @@ function DashboardContent() {
           <Divider />
           <List component="nav">
             {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <Divider sx={{ my: 5 }} />
+            {/* {secondaryListItems} */}
           </List>
         </Drawer>
+        
         <Box
           component="main"
           sx={{
@@ -172,7 +175,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  {/* <Chart /> */}
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -185,13 +188,13 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  {/* <Deposits /> */}
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  {/* <Orders /> */}
                 </Paper>
               </Grid>
             </Grid>

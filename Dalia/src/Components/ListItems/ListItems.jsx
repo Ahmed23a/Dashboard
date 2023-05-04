@@ -9,38 +9,41 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import DescriptionIcon from '@mui/icons-material/Description';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import PercentIcon from '@mui/icons-material/Percent';
 export const mainListItems = (
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
+        <QuestionMarkIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="بنك الأسئلة"/>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <DescriptionIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="الامتحانات" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="الطلاب" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <BarChartIcon />
+        <QrCodeScannerIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="الفواتير\الأكواد" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <LayersIcon />
+        <PercentIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="النتائج" />
     </ListItemButton>
   </React.Fragment>
 );
