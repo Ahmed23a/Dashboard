@@ -17,11 +17,10 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../ListItems/ListItems';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-// import Chart from '../Chart/Chart';
-// import Deposits from '../Deposite/Deposite';
-// import Orders from '../Orders/orders';
+import { mainListItems } from '../ListItems/ListItems';
+import QuestionsBank from '../QuestionsBank/QuestionsBank';
+
+
 
 function Copyright(props) {
   return (
@@ -91,6 +90,7 @@ function DashboardContent() {
   };
 
   return (
+    
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -166,6 +166,7 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
+              
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -175,6 +176,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
+                  <QuestionsBank/>
                   {/* <Chart /> */}
                 </Paper>
               </Grid>
@@ -207,5 +209,7 @@ function DashboardContent() {
 }
 
 export default function Dashboard() {
+
+
   return <DashboardContent />;
 }
