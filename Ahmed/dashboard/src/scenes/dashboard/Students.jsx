@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { mockDataTeam } from "../../Data/dummyData";
 import { tokens } from "../../theme";
@@ -14,6 +14,9 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid";
 import Pagination from "@mui/material/Pagination";
+import { Link, Outlet } from "react-router-dom";
+import { useContext, useState } from "react";
+import { sidebarCollapsed } from "../../Store";
 
 export function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -21,19 +24,31 @@ export function CustomPagination() {
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
 
   return (
+    // <Pagination
+    //   color="primary"
+    //   count={pageCount}
+    //   page={page + 1}
+    //   onChange={(event, value) => apiRef.current.setPage(value - 1)}
+
+    // />
     <Pagination
       color="primary"
       count={pageCount}
       page={page + 1}
       onChange={(event, value) => apiRef.current.setPage(value - 1)}
-      
-    />
+    >
+      <Box>
+        <Typography variant="h6">الصفحات</Typography>
+      </Box>
+    </Pagination>
   );
 }
 
-export default function Team() {
+export default function Student(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { isCollapsed, setIsCollapsed,isPressed,setIsPressed } = useContext(sidebarCollapsed); 
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -65,36 +80,46 @@ export default function Team() {
       flex: 1,
       renderCell: ({ row: { access } }) => {
         return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : colors.greenAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
+          // <Box
+          //   width="60%"
+          //   m="0 auto"
+          //   p="5px"
+          //   display="flex"
+          //   justifyContent="center"
+          //   backgroundColor={
+          //     access === "admin"
+          //       ? colors.greenAccent[600]
+          //       : colors.greenAccent[700]
+          //   }
+          //   borderRadius="4px"
+          // >
+          //   {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+          //   {access === "manager" && <SecurityOutlinedIcon />}
+          //   {access === "user" && <LockOpenOutlinedIcon />}
+          //   <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+          //     {access}
+          //   </Typography>
+          // </Box>
+          <Box display="flex" justifyContent="space-between">
+          <Link onClick={() => setIsPressed(!isPressed)} to={"StudentDelete"}> <Button className="bg-danger" variant="contained">Delete</Button></Link>
+          <Link onClick={() => setIsPressed(!isPressed)} to={"StudentUpdate"}> <Button  variant="contained">Update</Button></Link>
           </Box>
         );
       },
     },
   ];
+
   return (
     <Box m="20px">
       <Header title="فريق التدريس" subtitle="تنظيم فرق التدريس" />
+      <Link  onClick={() => setIsPressed(!isPressed)} to={"StudentCreate"}>
+       
+        <Button className={isPressed?"d-none":""} variant="contained">Create</Button>
+      </Link>
+
       <Box
         m="40px 0 0 0"
-        height="75vh"
+        className={isCollapsed ? "w-100 mx-100" : ""}
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -121,7 +146,18 @@ export default function Team() {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} components={{Pagination :CustomPagination}} />
+        {/* sebha keda la7d ama azbtha  */}
+        {isPressed ? (
+          <Outlet></Outlet>
+        ) : (
+          <DataGrid
+            sx={{ width: isCollapsed ? "100%" : "1610px" }}
+            checkboxSelection
+            rows={mockDataTeam}
+            columns={columns}
+            components={{ Pagination: CustomPagination }}
+          />
+        )}
       </Box>
     </Box>
   );

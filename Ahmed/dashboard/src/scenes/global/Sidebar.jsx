@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useContext, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -18,10 +18,12 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import fish from "./Fish.png";
+import { sidebarCollapsed } from "../../Store";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -40,7 +42,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 export default function Sidebar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // const [isCollapsed, setIsCollapsed] = useState(false);
+  const {isCollapsed,setIsCollapsed} = useContext(sidebarCollapsed)
   const [selected, setSelected] = useState("Dashboard");
 
   return (
@@ -150,8 +153,8 @@ export default function Sidebar() {
               setSelected={setSelected}
             />
             <Item
-              title="الفرق"
-              to="/Team"
+              title="الطلاب"
+              to="/Student"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
