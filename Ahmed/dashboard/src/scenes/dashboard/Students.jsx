@@ -17,6 +17,8 @@ import Pagination from "@mui/material/Pagination";
 import { Link, Outlet } from "react-router-dom";
 import { useContext, useState } from "react";
 import { sidebarCollapsed } from "../../Store";
+import DeleteButton from "./DeleteButton";
+import { useEffect } from "react";
 
 export function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -35,6 +37,7 @@ export function CustomPagination() {
       color="primary"
       count={pageCount}
       page={page + 1}
+      
       onChange={(event, value) => apiRef.current.setPage(value - 1)}
     >
       <Box>
@@ -47,10 +50,12 @@ export function CustomPagination() {
 export default function Student(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { isCollapsed, setIsCollapsed,isPressed,setIsPressed } = useContext(sidebarCollapsed); 
+  let [studentsData, setStudentsData] = useState(mockDataTeam);
+  const { isCollapsed, setIsCollapsed, isPressed, setIsPressed } =
+    useContext(sidebarCollapsed);
 
   const columns = [
-    { field: "id", headerName: "ID" },
+    // { field: "id", headerName: "ID" },
     {
       field: "name",
       headerName: "اسم",
@@ -75,46 +80,31 @@ export default function Student(props) {
       flex: 1,
     },
     {
-      field: "access",
-      headerName: "الصلاحيات",
+      field: "id",
+      headerName: "حذف",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { id } }) => {
         return (
-          // <Box
-          //   width="60%"
-          //   m="0 auto"
-          //   p="5px"
-          //   display="flex"
-          //   justifyContent="center"
-          //   backgroundColor={
-          //     access === "admin"
-          //       ? colors.greenAccent[600]
-          //       : colors.greenAccent[700]
-          //   }
-          //   borderRadius="4px"
-          // >
-          //   {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-          //   {access === "manager" && <SecurityOutlinedIcon />}
-          //   {access === "user" && <LockOpenOutlinedIcon />}
-          //   <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-          //     {access}
-          //   </Typography>
-          // </Box>
-          <Box display="flex" justifyContent="space-between">
-          <Link onClick={() => setIsPressed(!isPressed)} to={"StudentDelete"}> <Button className="bg-danger" variant="contained">Delete</Button></Link>
-          <Link onClick={() => setIsPressed(!isPressed)} to={"StudentUpdate"}> <Button  variant="contained">Update</Button></Link>
-          </Box>
+         
+          <DeleteButton
+            index={id}
+            dataArray={studentsData}
+            setDataArray={setStudentsData}
+          />
         );
       },
     },
   ];
 
+
+
   return (
     <Box m="20px">
       <Header title="فريق التدريس" subtitle="تنظيم فرق التدريس" />
-      <Link  onClick={() => setIsPressed(!isPressed)} to={"StudentCreate"}>
-       
-        <Button className={isPressed?"d-none":""} variant="contained">Create</Button>
+      <Link onClick={() => setIsPressed(!isPressed)} to={"StudentCreate"}>
+        <Button className={isPressed ? "d-none" : ""} variant="contained">
+          Create
+        </Button>
       </Link>
 
       <Box
@@ -150,13 +140,16 @@ export default function Student(props) {
         {isPressed ? (
           <Outlet></Outlet>
         ) : (
-          <DataGrid
-            sx={{ width: isCollapsed ? "100%" : "1610px" }}
-            checkboxSelection
-            rows={mockDataTeam}
-            columns={columns}
-            components={{ Pagination: CustomPagination }}
-          />
+          <>
+            <DataGrid
+              sx={{ width: isCollapsed ? "99%" : "99%" }}
+              checkboxSelection
+              rows={studentsData}
+              columns={columns}
+              components={{ Pagination: CustomPagination }}
+              
+            />
+          </>
         )}
       </Box>
     </Box>
