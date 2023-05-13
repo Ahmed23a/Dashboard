@@ -24,6 +24,23 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckIcon from '@mui/icons-material/Check';
 export default function UpdateQuestion(props) {
+  let[ques,setQues]=useState("")
+  let[value1,setValue1]=useState("")
+  let[value2,setValue2]=useState("")
+  let[value3,setValue3]=useState("")
+
+  useEffect(()=>{
+    console.log(value1)
+    console.log(value2)
+    console.log(value3)
+    console.log(ques)
+    let values = {"ques":ques,"value1":value1,"value2":value2,"value3":value3}
+    localStorage.setItem("values",JSON.stringify(values))
+    let returnValue =JSON.parse(localStorage.getItem("values")) 
+    console.log(returnValue)
+
+  },[ques,value1,value2,value3])
+
   const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -31,7 +48,7 @@ export default function UpdateQuestion(props) {
     maxWidth: "auto",
     color: theme.palette.text.primary,
   }));
-  console.log("props");
+
   return (
     <Grid item xs>
       <Typography component={"span"} sx={{ float: "right" }}>
@@ -42,6 +59,7 @@ export default function UpdateQuestion(props) {
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
+          value={ques} onChange={(event)=>{setQues(event.target.value)}}
         />
 
 
@@ -51,6 +69,7 @@ export default function UpdateQuestion(props) {
             id="standard-basic"
             label="الاختيار الأول"
             variant="standard"
+            value={value1} onChange={(event)=>{setValue1(event.target.value)}}
           />
           <span id="result-3"></span>
         </div>
@@ -60,6 +79,7 @@ export default function UpdateQuestion(props) {
             id="standard-basic"
             label="الاختيار الثاني"
             variant="standard"
+            value={value2} onChange={(event)=>{setValue2(event.target.value)}}
           />
           <span id="result-3"></span>
         </div>
@@ -69,6 +89,7 @@ export default function UpdateQuestion(props) {
             id="standard-basic"
             label="الاختيار الثالث"
             variant="standard"
+            value={value3} onChange={(event)=>{setValue3(event.target.value)}}
           />
           <span id="result-3"></span>
         </div>

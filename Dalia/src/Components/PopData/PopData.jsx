@@ -13,7 +13,10 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import UpdateQuestion from "../UpdateQuestion/UpdateQuestion";
-export default function PopData() {
+export default function PopData(props) {
+
+
+  console.log(props)
   const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -24,6 +27,8 @@ export default function PopData() {
   let [question, setQuestion] = useState([]);
   let [answers, setAnswers] = useState([]);
   let [shown, setIsshown] = useState(false);
+
+ 
   async function getQuestion() {
     let { data } = await axios.get(
       "https://mocki.io/v1/f9405dfd-345a-443f-8d7e-99d46400e1d9"
@@ -48,16 +53,17 @@ export default function PopData() {
       <Grid item xs>
         <Typography component={"span"} sx={{ float: "right" }}>
           <h3 dir="rtl">
-            {question.map((q, ind) => (
+            {/* {question.map((q, ind) => (
               <span key={ind}>{q.question}</span>
-            ))}
+            ))} */}
+            {props.ques}
           </h3>
           <span dir="rtl">اختر اجابة واحدة صحيحة</span>
 
           <div id="block-3" dir="rtl">
             <label htmlFor="option-3">
               <input type="radio" name="option" value="180" id="option-3" />
-              180
+             {props.value1}
             </label>
             <span id="result-3"></span>
           </div>
@@ -65,7 +71,7 @@ export default function PopData() {
           <div id="block-4" dir="rtl">
             <label htmlFor="option-4">
               <input type="radio" name="option" value="220" id="option-4" />
-              220
+             {props.value2}
             </label>
             <span id="result-4"></span>
           </div>
@@ -73,7 +79,7 @@ export default function PopData() {
           <div id="block-5" dir="rtl">
             <label htmlFor="option-5">
               <input type="radio" name="option" value="360" id="option-5" />
-              360
+              {props.value3}
             </label>
             <span id="result-5"></span>
           </div>

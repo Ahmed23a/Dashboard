@@ -23,12 +23,25 @@ export default function Popup() {
     maxWidth: "auto",
     color: theme.palette.text.primary,
   }));
-  let [shown, setIsshown] = useState(false);
-  function handleClick() {
-    setIsshown(true);
-    console.log(shown);
-  }
+  let [shownUpdate, setIsshownUpdate] = useState(true);
+  let [shownConfirm, setIsshownConfirm] = useState(false);
 
+  let [returnValue,setReturnValue] =useState({})
+  console.log(returnValue)
+
+
+
+  function handleClick() {
+    setIsshownUpdate((prev) => !prev);
+    console.log(shownUpdate);
+    setIsshownConfirm((prev) => !prev);
+    console.log(shownConfirm);
+  }
+ useEffect(()=>{
+  // if(shownConfirm==false)
+  // return;
+  setReturnValue(JSON.parse(localStorage.getItem("values")))
+ },[shownConfirm])
   return (
     <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3 }}>
       <StyledPaper
@@ -47,16 +60,25 @@ export default function Popup() {
         >
           <Grid item>
             <Stack direction="row" spacing={2}>
-              <Button
-                onClick={handleClick}
-                variant="contained"
-                endIcon={shown ? <CheckIcon /> : <UpgradeIcon />}
-              >
-                {shown ? "تأكيد" : "تحديث"}
-              </Button>
+              {shownUpdate && (
+                <Button
+                  onClick={handleClick}
+                  variant="contained"
+                  endIcon={<UpgradeIcon />}
+                >تحديث</Button>
+              )}
+              {shownConfirm && (
+                <Button
+                  onClick={handleClick}
+                  variant="contained"
+                  endIcon={<CheckIcon />}
+                >
+                  تأكيد
+                </Button>
+              )}
             </Stack>
           </Grid>
-          {shown ? <UpdateQuestion /> : <PopData />}
+          {shownUpdate ? <PopData ques={returnValue.ques} value1={returnValue.value1} value2={returnValue.value2} value3={returnValue.value3}/> : <UpdateQuestion />}
         </Grid>
       </StyledPaper>
     </Box>
