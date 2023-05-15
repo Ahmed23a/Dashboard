@@ -24,10 +24,12 @@ import StudentUpdate from "./scenes/dashboard/StudentUpdate";
 import StudentCreate from "./scenes/dashboard/StudentCreate";
 import StudentDelete from "./scenes/dashboard/StudentDelete";
 import SidebarCollapsedProvider from "./Store";
-
+import View from "./scenes/dashboard/View";
+import QuesntionDataProvider from "./QuestionContext";
+import QuestionCreate from "./scenes/dashboard/QuestionCreate";
 
 const themeRtl = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
+  direction: "rtl", 
 });
 
 const cacheRtl = createCache({
@@ -51,8 +53,9 @@ function App() {
                     <Topbar />
                     <Routes>
                       <Route path="/" element={<Dashboard />} />
-                      <Route path="QuestionsBank" element={<QuestionsBank />} />
-                      <Route path="Student" element={<Student  />}>
+
+                      {/* <Route path="QuestionView" element={<QuestionView />} /> */}
+                      <Route path="Student" element={<Student />}>
                         <Route
                           path="StudentUpdate"
                           element={<StudentUpdate />}
@@ -75,15 +78,26 @@ function App() {
                       <Route path="Geography" element={<Geography />} />
                       <Route path="Line" element={<Line />} />
                       <Route path="Calendar" element={<Calendar />} />
-                      <Route
+                      
+                    </Routes>
+                    
+                    <QuesntionDataProvider>
+                      <Routes>
+                        <Route path="QuestionsBank" element={<QuestionsBank />}>
+                          <Route path="QuestionCreate" element={<QuestionCreate/>}/>
+                          <Route path="View" element={<View />} />
+                        </Route>
+                        {/* <Route
                         path="*"
                         element={
                           <div className="container">
                             <h2>Page Not Found</h2>
                           </div>
                         }
-                      />
-                    </Routes>
+                      /> */}
+                      </Routes>
+                    </QuesntionDataProvider>
+                    
                   </main>
                 </div>
               </ThemeProvider>

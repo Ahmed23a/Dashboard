@@ -19,6 +19,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import fish from "./Fish.png";
 import { sidebarCollapsed } from "../../Store";
+import testimonial from "./testimonial-2.jpg"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -105,7 +106,7 @@ export default function Sidebar() {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={fish}
+                  src={testimonial}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -116,10 +117,10 @@ export default function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  سمكة
+                  المعلم
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  تايه ف بحر العلم
+                   الملف الشخصي  
                 </Typography>
               </Box>
             </Box>

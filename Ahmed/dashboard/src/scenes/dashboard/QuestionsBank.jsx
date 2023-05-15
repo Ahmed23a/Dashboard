@@ -6,12 +6,12 @@ import { Dropdown, Selection } from "react-dropdown-now";
 import "react-dropdown-now/style.css";
 import { sidebarCollapsed } from "../../Store";
 import Header from "./../../components/Header";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteButton from "./DeleteButton";
-import { dummyQuestions } from "./../../Data/dummyQuestions";
 import { CustomPagination } from "./Students";
+import { quesntionData } from "../../QuestionContext";
 
 // normal usage
 
@@ -26,11 +26,13 @@ export default function QuestionsBank() {
 
   //Ahmed
   const { isCollapsed, isPressed, setIsPressed } = useContext(sidebarCollapsed);
+  const { setIdRow, setAllQuestions, allQuestions } = useContext(quesntionData);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [questions, setQuestions] = useState(dummyQuestions);
 
-  console.log();
+  const navigate = useNavigate();
+  console.log(allQuestions);
+
   const columns = [
     // { field: "id", headerName: "ID" },
     {
@@ -38,10 +40,40 @@ export default function QuestionsBank() {
       headerName: "السؤال",
       flex: 1,
       cellClassName: "name-column--cell",
+      renderCell: ({ row: { question, id } }) => {
+        return (
+          <>
+            {/* <QuestionView key={id} index={id} getQuestion={getQuestion} onClick={()=>
+              {
+                setIdRow(id)
+              }} /> */}
+
+            <p
+              onClick={() => {
+                setIsPressed(!isPressed);
+                setIdRow(id);
+                navigate("View");
+              }}
+            >
+              {question}
+            </p>
+          </>
+        );
+      },
+    },   
+    {
+      field: "year",
+      headerName: "الصف الدراسى",
+      flex: 1,
     },
     {
-      field: "answer",
-      headerName: "الاجابة الصحيحة",
+      field: "subject",
+      headerName: "المادة الدراسية",
+      flex: 1,
+    },
+    {
+      field: "session",
+      headerName: "الدرس",
       flex: 1,
     },
     {
@@ -53,8 +85,8 @@ export default function QuestionsBank() {
           <DeleteButton
             key={id}
             index={id}
-            dataArray={questions}
-            setDataArray={setQuestions}
+            dataArray={allQuestions}
+            setDataArray={setAllQuestions}
           />
         );
       },
@@ -123,8 +155,8 @@ export default function QuestionsBank() {
         <Dropdown placeholder="اختر الدرس" options={optionsLessons} />
 
         <Box m="20px">
-          <Header title="فريق التدريس" subtitle="تنظيم فرق التدريس" />
-          <Link onClick={() => setIsPressed(!isPressed)} to={"StudentCreate"}>
+          <Header title="بنك الاسئلة" subtitle="جميع الاسئلة" />
+          <Link onClick={() => setIsPressed(!isPressed)} to={"QuestionCreate"}>
             <Button className={isPressed ? "d-none" : ""} variant="contained">
               Create
             </Button>
@@ -165,13 +197,11 @@ export default function QuestionsBank() {
             ) : (
               <>
                 <DataGrid
-                className="100vh"
-                  sx={{ width: isCollapsed ? "99%" : "99%"  }}
+                  sx={{ width: isCollapsed ? "99%" : "99%" }}
                   checkboxSelection
-                  rows={questions}
-                  columns={columns}                  
-               
-                  
+                  rows={allQuestions}
+                  columns={columns}
+                  components={{ Pagination: CustomPagination }}
                 />
               </>
             )}

@@ -35,7 +35,8 @@ export default function UpdateQuestion(props) {
     console.log(value3)
     console.log(ques)
     let values = {"ques":ques,"value1":value1,"value2":value2,"value3":value3}
-    localStorage.setItem("values",JSON.stringify(values))
+    // localStorage.setItem("values",JSON.stringify(values))
+    localStorage.setItem("values",JSON.stringify("Hello"))
     let returnValue =JSON.parse(localStorage.getItem("values")) 
     console.log(returnValue)
 
