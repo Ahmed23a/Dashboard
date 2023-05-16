@@ -18,7 +18,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import fish from "./Fish.png";
-import { sidebarCollapsed } from "../../Store";
+import  {storeValues}  from "../../Store";
 import testimonial from "./testimonial-2.jpg"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -42,9 +42,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
 export default function Sidebar() {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  // const [isCollapsed, setIsCollapsed] = useState(false);
-  const {isCollapsed,setIsCollapsed} = useContext(sidebarCollapsed)
+  const colors = tokens(theme.palette.mode); 
+  const {isCollapsed,setIsCollapsed} = useContext(storeValues)
   const [selected, setSelected] = useState("Dashboard");
 
   return (

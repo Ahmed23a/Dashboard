@@ -1,24 +1,34 @@
-import { Box, Button, useTheme } from "@mui/material";
-import React, { useContext } from "react";
-import { sidebarCollapsed } from "../../Store";
-import { tokens } from "../../theme";
+import { Box, Button } from "@mui/material";
+import { useContext } from "react";
+import   {storeValues}  from "../../Store";
+
 
 import { useNavigate } from "react-router-dom";
-import { quesntionData } from "../../QuestionContext";
+import Header from './../../components/Header';
 
-export default function View(props) {
-  const { isCollapsed, isPressed, setIsPressed } = useContext(sidebarCollapsed);    
-  const { idRow,setIdRow, allQuestions,setAllQuestions } = useContext(quesntionData);
+export default function QuestionView(props) {
+  const {    
+    isPressed,
+    setIsPressed,
+    idRow,
+    setIdRow,
+    allQuestions,
+    setAllQuestions,
+  } = useContext(storeValues);
+
   const navigate = useNavigate();
 
   function getQuestion(id) {
     return allQuestions.filter((question) => question.id == id)[0];
   }
-  
- let x = getQuestion(idRow)
- console.log(x)
+
+  let x = getQuestion(idRow);
+  console.log(x);
   return (
     <Box>
+      
+      <Header title="تفاصيل السؤال" subtitle="ـــــــــــــــــــــــ" />
+
       <h1>السؤال: {x.question}</h1>
       <h6> أ/ {x.A}</h6>
       <h6> ب/ {x.B}</h6>

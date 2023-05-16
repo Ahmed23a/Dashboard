@@ -1,6 +1,5 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { mockDataTeam } from "../../Data/dummyData";
 import { tokens } from "../../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
@@ -14,11 +13,10 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid";
 import Pagination from "@mui/material/Pagination";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { sidebarCollapsed } from "../../Store";
-import DeleteButton from "./DeleteButton";
-import { useEffect } from "react";
+import { storeValues } from "../../Store";
+import StudentActions from "./StudentActions";
 
 export function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -37,7 +35,6 @@ export function CustomPagination() {
       color="primary"
       count={pageCount}
       page={page + 1}
-      
       onChange={(event, value) => apiRef.current.setPage(value - 1)}
     >
       <Box>
@@ -50,9 +47,11 @@ export function CustomPagination() {
 export default function Student(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  let [studentsData, setStudentsData] = useState(mockDataTeam);
-  const { isCollapsed, setIsCollapsed, isPressed, setIsPressed } =
-    useContext(sidebarCollapsed);
+
+  const { isCollapsed, isPressed, setIsPressed, allStudents, setAllStudents , setIdRow } =
+    useContext(storeValues);
+  const navigate = useNavigate();
+
 
   const columns = [
     // { field: "id", headerName: "ID" },
@@ -61,6 +60,21 @@ export default function Student(props) {
       headerName: "اسم",
       flex: 1,
       cellClassName: "name-column--cell",
+      renderCell: ({ row: { name, id } }) => {
+        return (
+          <>
+            <p
+              onClick={() => {
+                setIsPressed(!isPressed);
+                setIdRow(id);
+                navigate("StudentView");
+              }}
+            >
+              {name}
+            </p>
+          </>
+        );
+      },
     },
     {
       field: "age",
@@ -85,22 +99,26 @@ export default function Student(props) {
       flex: 1,
       renderCell: ({ row: { id } }) => {
         return (
-         
-          <DeleteButton
-            index={id}
-            dataArray={studentsData}
-            setDataArray={setStudentsData}
-          />
+          <Box
+            onClick={() => {
+              setIdRow(id);
+            }}
+          >
+            <StudentActions
+              key={id}
+              index={id}
+              dataArray={allStudents}
+              setDataArray={setAllStudents}
+            />
+          </Box>
         );
       },
     },
   ];
 
-
-
   return (
     <Box m="20px">
-      <Header title="فريق التدريس" subtitle="تنظيم فرق التدريس" />
+      <Header title="الطلاب" subtitle="ـــــــــــــــــ" />
       <Link onClick={() => setIsPressed(!isPressed)} to={"StudentCreate"}>
         <Button className={isPressed ? "d-none" : ""} variant="contained">
           Create
@@ -144,10 +162,9 @@ export default function Student(props) {
             <DataGrid
               sx={{ width: isCollapsed ? "99%" : "99%" }}
               checkboxSelection
-              rows={studentsData}
+              rows={allStudents}
               columns={columns}
               components={{ Pagination: CustomPagination }}
-              
             />
           </>
         )}

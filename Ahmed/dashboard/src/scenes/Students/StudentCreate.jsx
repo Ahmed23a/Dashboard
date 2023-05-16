@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
 import  { useContext } from "react";
 
-import { sidebarCollapsed } from "../../Store";
+import  {storeValues}  from "../../Store";
 import { useNavigate } from "react-router-dom";
 
 export default function StudentCreate() {
-  const { isPressed, setIsPressed } = useContext(sidebarCollapsed);
+  const { isPressed, setIsPressed } = useContext(storeValues);
   const navigate = useNavigate();
 
   return (

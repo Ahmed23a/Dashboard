@@ -4,14 +4,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Dropdown, Selection } from "react-dropdown-now";
 import "react-dropdown-now/style.css";
-import { sidebarCollapsed } from "../../Store";
-import Header from "./../../components/Header";
+import { storeValues } from "../../Store";
+import Header from "../../components/Header";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
 import { DataGrid } from "@mui/x-data-grid";
-import DeleteButton from "./DeleteButton";
-import { CustomPagination } from "./Students";
-import { quesntionData } from "../../QuestionContext";
+import QuestionActions from "./QuestionActions";
+import { CustomPagination } from "../Students/Students";
 
 // normal usage
 
@@ -25,8 +24,15 @@ export default function QuestionsBank() {
   ];
 
   //Ahmed
-  const { isCollapsed, isPressed, setIsPressed } = useContext(sidebarCollapsed);
-  const { setIdRow, setAllQuestions, allQuestions } = useContext(quesntionData);
+  const {
+    isCollapsed,
+    isPressed,
+    setIsPressed,
+    setIdRow,
+    setAllQuestions,
+    allQuestions,
+  } = useContext(storeValues);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -43,16 +49,11 @@ export default function QuestionsBank() {
       renderCell: ({ row: { question, id } }) => {
         return (
           <>
-            {/* <QuestionView key={id} index={id} getQuestion={getQuestion} onClick={()=>
-              {
-                setIdRow(id)
-              }} /> */}
-
             <p
               onClick={() => {
                 setIsPressed(!isPressed);
                 setIdRow(id);
-                navigate("View");
+                navigate("QuestionView");
               }}
             >
               {question}
@@ -60,7 +61,7 @@ export default function QuestionsBank() {
           </>
         );
       },
-    },   
+    },
     {
       field: "year",
       headerName: "الصف الدراسى",
@@ -82,12 +83,18 @@ export default function QuestionsBank() {
       flex: 1,
       renderCell: ({ row: { id } }) => {
         return (
-          <DeleteButton
-            key={id}
-            index={id}
-            dataArray={allQuestions}
-            setDataArray={setAllQuestions}
-          />
+          <Box
+            onClick={() => {
+              setIdRow(id);
+            }}
+          >
+            <QuestionActions
+              key={id}
+              index={id}
+              dataArray={allQuestions}
+              setDataArray={setAllQuestions}
+            />
+          </Box>
         );
       },
     },
@@ -164,7 +171,7 @@ export default function QuestionsBank() {
 
           <Box
             m="40px 0 0 0"
-            className={isCollapsed ? "w-100 mx-100" : ""}
+            // className={isCollapsed ? "w-100 mx-100" : ""}
             sx={{
               "& .MuiDataGrid-root": {
                 border: "none",
@@ -197,7 +204,8 @@ export default function QuestionsBank() {
             ) : (
               <>
                 <DataGrid
-                  sx={{ width: isCollapsed ? "99%" : "99%" }}
+                  // sx={{ width: isCollapsed ? "99%" : "99%" }}
+                  sx={{ width: "auto" }}
                   checkboxSelection
                   rows={allQuestions}
                   columns={columns}

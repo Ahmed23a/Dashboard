@@ -1,22 +1,35 @@
 import { createContext, useState } from "react";
+import { mockDataTeam } from "./Data/dummyData";
 import { dummyQuestions } from "./Data/dummyQuestions";
 
-export let sidebarCollapsed = createContext(0);
+export let storeValues = createContext(0);
 
-export default function SidebarCollapsedProvider(props) {
+export default function StoreValuesProvider(props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
-  
-  const [allQuestion, setAllQuestions] = useState(dummyQuestions);
-
-  
-  
+  const [allQuestions, setAllQuestions] = useState(dummyQuestions);
+  const [allStudents, setAllStudents] = useState(mockDataTeam);
+  const [selectedQuestion, setSelectedQuestion] = useState("");
+  const [idRow, setIdRow] = useState(0);
 
   return (
-    <sidebarCollapsed.Provider
-      value={{ isCollapsed, setIsCollapsed, isPressed, setIsPressed,allQuestion }}
+    <storeValues.Provider
+      value={{
+        isCollapsed,
+        setIsCollapsed,
+        isPressed,
+        setIsPressed,
+        selectedQuestion,
+        setSelectedQuestion,
+        idRow,
+        setIdRow,
+        allQuestions,
+        setAllQuestions,
+        allStudents,
+        setAllStudents,
+      }}
     >
       {props.children}
-    </sidebarCollapsed.Provider>
+    </storeValues.Provider>
   );
 }
