@@ -12,9 +12,7 @@ import UpdateQuestion from "./UpdatQuestion";
 import PopData from "./PopData";
 import { useEffect } from "react";
 
-
 export default function QuestionViewIn(props) {
-  console.log("props",props)
   const {
     isPressed,
     setIsPressed,
@@ -26,15 +24,13 @@ export default function QuestionViewIn(props) {
   let [shownUpdate, setIsshownUpdate] = useState(true);
   let [shownConfirm, setIsshownConfirm] = useState(false);
 
-//   let [returnValue,setReturnValue] =useState({})
-//   console.log(returnValue)
-//   useEffect(()=>{
-//     setReturnValue(JSON.parse(localStorage.getItem("values")))
-//    },[shownConfirm])
+  //   let [returnValue,setReturnValue] =useState({})
+  //   console.log(returnValue)
+  //   useEffect(()=>{
+  //     setReturnValue(JSON.parse(localStorage.getItem("values")))
+  //    },[shownConfirm])
 
-
-
-//   const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
   function getQuestion(id) {
     return allQuestions.filter((question) => question.id == id)[0];
@@ -42,17 +38,17 @@ export default function QuestionViewIn(props) {
 
   let x = getQuestion(idRow);
   console.log(x);
+
   return (
     <Box>
-
-
       <h1>السؤال: {x.question}</h1>
-      <h6> أ/ {props.confirm?(props.value1):(x.A)}</h6>
+      <h5> الصف الدراسي / {x.year}</h5>
+      <h5> المادة الدراسية/ {x.subject}</h5>
+      <h5> الدرس/ {x.session}</h5>
       <h6> ب/ {x.B}</h6>
       <h6>ج/ {x.C}</h6>
       <h6>د/ {x.D}</h6>
       <p> الاجابة الصحيحة: {x.answer}</p>
- 
     </Box>
   );
 }

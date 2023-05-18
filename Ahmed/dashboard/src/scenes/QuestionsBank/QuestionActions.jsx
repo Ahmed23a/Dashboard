@@ -28,22 +28,12 @@ export default function DeleteButton(props) {
         
       </div>
       <div>
-        <Link to={"QuestionUpdate"}>
+        <Link to={"UpdateQuestion"}>
           {" "}
           <Button
             variant="contained"
-            onClick={() => {
-             
-              setIsPressed(!isPressed);
-             
-              // let dataArray = props.dataArray.map((data)=>
-              // {
-              //   if(data.id == props.index)
-              //   {
-              //     data.subject = "أهلا"
-              //   }
-              // })
-              // setAllStudents(dataArray)
+            onClick={() => {             
+              setIsPressed(!isPressed);                     
             }}
           >
             Update

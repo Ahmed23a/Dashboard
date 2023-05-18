@@ -19,21 +19,17 @@ export default function QuestionView(props) {
   let [value2, setValue2] = useState("");
   let [value3, setValue3] = useState("");
 
-  useEffect(() => {
-    console.log(value1);
-    console.log(value2);
-    console.log(value3);
-    console.log(ques);
-    if (!localStorage.getItem("values")) {
-      let values = {
-        ques: ques,
-        value1: value1,
-        value2: value2,
-        value3: value3,
-      };
-      localStorage.setItem("values", JSON.stringify(values));
-    }
-  });
+  // useEffect(() => {
+  //   if (!localStorage.getItem("values")) {
+  //     let values = {
+  //       ques: ques,
+  //       value1: value1,
+  //       value2: value2,
+  //       value3: value3,
+  //     };
+  //     localStorage.setItem("values", JSON.stringify(values));
+  //   }
+  // });
 
   const {
     isPressed,
@@ -47,53 +43,53 @@ export default function QuestionView(props) {
   let [shownConfirm, setIsshownConfirm] = useState(false);
 
   let [returnValue, setReturnValue] = useState({});
-  console.log(returnValue);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setReturnValue(JSON.parse(localStorage.getItem("values")));
   }, [shownConfirm]);
 
   function handleClick(props) {
     setIsshownUpdate((prev) => !prev);
-    console.log(shownUpdate);
+
     // props.confirm = shownConfirm
-    
+
     setIsshownConfirm((prev) => !prev);
-
-    console.log("confirm", props.confirm);
-  }
-  const navigate = useNavigate();
-
-  function getQuestion(id) {
-    return allQuestions.filter((question) => question.id == id)[0];
   }
 
-  let x = getQuestion(idRow);
-  console.log(x);
   return (
     <Box>
       <Header title="تفاصيل السؤال" subtitle="ـــــــــــــــــــــــ" />
+      <h2>Hello from Question View </h2>
 
       {shownUpdate ? (
         <QuestionViewIn
           confirm={shownConfirm}
-          ques={returnValue.ques}
-          value1={returnValue.value1}
-          value2={returnValue.value2}
-          value3={returnValue.value3}
+          // ques={returnValue.ques}
+          // value1={returnValue.value1}
+          // value2={returnValue.value2}
+          // value3={returnValue.value3}
         />
       ) : (
-        <UpdateQuestion />
+        <UpdateQuestion
+        // ques={returnValue.ques}
+        // value1={returnValue.value1}
+        // value2={returnValue.value2}
+        // value3={returnValue.value3}
+        />
       )}
-      <Button
-        onClick={() => {
-          setIsPressed(!isPressed);
-          navigate("/QuestionsBank");
-        }}
-        variant="contained"
-        endIcon={<ClearIcon />}
-      >
-        إلغاء
-      </Button>
+      {shownUpdate && (
+        <Button
+          onClick={() => {
+            setIsPressed(!isPressed);
+            navigate("/QuestionsBank");
+          }}
+          variant="contained"
+          endIcon={<ClearIcon />}
+        >
+          إلغاء
+        </Button>
+      )}
 
       {shownUpdate && (
         <Button
@@ -104,15 +100,18 @@ export default function QuestionView(props) {
           تحديث
         </Button>
       )}
-      {shownConfirm && (
+      {/* {shownConfirm && (
         <Button
-          onClick={() => handleClick()}
+          onClick={() => {
+            handleClick();
+            UpdateQuestion;
+          }}
           variant="contained"
           endIcon={<CheckIcon />}
         >
           تأكيد
         </Button>
-      )}
+      )} */}
     </Box>
   );
 }

@@ -1,4 +1,4 @@
-export const dummyQuestions = [{
+export let dummyQuestions = [{
     "id": 1,
     "year": "الأول الثانوي",
     "subject": "جبر",

@@ -23,13 +23,15 @@ import createCache from "@emotion/cache";
 
 import StudentUpdate from "./scenes/Students/StudentUpdate";
 import StudentCreate from "./scenes/Students/StudentCreate";
+import StudentView from "./scenes/Students/StudentView";
 
 import StoreValuesProvider from "./Store";
-import QuestionView from "./scenes/QuestionsBank/QuestionView";
 
+import QuestionView from "./scenes/QuestionsBank/QuestionView";
 import QuestionCreate from "./scenes/QuestionsBank/QuestionCreate";
-import QuestionUpdate from "./scenes/QuestionsBank/QuestionUpdate";
-import StudentView from "./scenes/Students/StudentView";
+import UpdateQuestion from "./scenes/QuestionsBank/UpdatQuestion";
+
+
 
 const themeRtl = createTheme({
   direction: "rtl",
@@ -63,8 +65,8 @@ function App() {
                         />
                         <Route path="QuestionView" element={<QuestionView />} />
                         <Route
-                          path="QuestionUpdate"
-                          element={<QuestionUpdate />}
+                          path="UpdateQuestion"
+                          element={<UpdateQuestion />}
                         />
                       </Route>
 
