@@ -1,9 +1,14 @@
 import { Box, Button } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { storeValues } from "../../Store";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from './../../components/Header';
+import ClearIcon from "@mui/icons-material/Clear";
+import UpgradeIcon from "@mui/icons-material/Upgrade";
+import CheckIcon from "@mui/icons-material/Check";
+import StudentUpdate from "./StudentUpdate";
+import StudentViewIn from "./StudentViewIn";
 
 export default function StudentView(props) {
   const {
@@ -16,6 +21,16 @@ export default function StudentView(props) {
   } = useContext(storeValues);
 
   const navigate = useNavigate();
+  let [shownUpdate, setIsshownUpdate] = useState(true);
+  let [shownConfirm, setIsshownConfirm] = useState(false);
+  
+  function handleClick(props) {
+    setIsshownUpdate((prev) => !prev);
+
+    // props.confirm = shownConfirm
+
+    setIsshownConfirm((prev) => !prev);
+  }
 
   function getStudent(id) {
     return allStudents.filter((question) => question.id == id)[0];
@@ -25,24 +40,53 @@ export default function StudentView(props) {
   console.log(x);
 
   return (
+    
     <Box>
       
       <Header title="بيانات الطالب" subtitle="ـــــــــــــــــــــــ" />
 
-      <h1>الطالب: {x.name}</h1>
-      <h6> الصف/ {x.year}</h6>
-      <h6> رقم الهاتف/ {x.phone}</h6>
-      <h6>العمر/ {x.age}</h6>
-      <h6>البريد الالكتروني/ {x.email}</h6>
-      <Button
+      {shownUpdate ? (
+        <StudentViewIn
+          // confirm={shownConfirm}
+          // ques={returnValue.ques}
+          // value1={returnValue.value1}
+          // value2={returnValue.value2}
+          // value3={returnValue.value3}
+        />
+      ) : (
+        <StudentUpdate
+        // ques={returnValue.ques}
+        // value1={returnValue.value1}
+        // value2={returnValue.value2}
+        // value3={returnValue.value3}
+        />
+      )}
+
+     {shownUpdate && <Button
         onClick={() => {
           setIsPressed(!isPressed);
           navigate("/Student");
         }}
         variant="contained"
+        endIcon={<ClearIcon />}
       >
-        Cancel
-      </Button>
+        إلغاء
+      </Button>}
+
+ 
+      {shownUpdate && (
+
+        <Button  sx={{mx:2,my:2}}
+          onClick={handleClick}
+          variant="contained"
+          endIcon={<UpgradeIcon />}
+        >
+          تحديث
+        </Button>
+
+      )}
+        
+  
     </Box>
   );
 }
