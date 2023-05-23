@@ -1,4 +1,4 @@
-import {  useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -18,8 +18,8 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import fish from "./Fish.png";
-import  {storeValues}  from "../../Store";
-import testimonial from "./testimonial-2.jpg"
+import { storeValues } from "../../Store";
+import testimonial from "./testimonial-2.jpg";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -42,8 +42,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
 export default function Sidebar() {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode); 
-  const {isCollapsed,setIsCollapsed} = useContext(storeValues)
+  const colors = tokens(theme.palette.mode);
+  const { isCollapsed, setIsCollapsed, isPressed, setIsPressed } =
+    useContext(storeValues);
   const [selected, setSelected] = useState("Dashboard");
 
   return (
@@ -119,19 +120,20 @@ export default function Sidebar() {
                   المعلم
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                   الملف الشخصي  
+                  الملف الشخصي
                 </Typography>
               </Box>
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box  onClick={()=> isPressed ? setIsPressed(!isPressed) : "" } paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="اللوحة الرئيسية"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
+              
             />
 
             <Typography
@@ -151,6 +153,7 @@ export default function Sidebar() {
               icon={<AccountBalanceIcon />}
               selected={selected}
               setSelected={setSelected}
+              
             />
             <Item
               title="الطلاب"
