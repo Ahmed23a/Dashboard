@@ -48,10 +48,15 @@ export default function Student(props) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { isCollapsed, isPressed, setIsPressed, allStudents, setAllStudents , setIdRow } =
-    useContext(storeValues);
+  const {
+    isCollapsed,
+    isPressed,
+    setIsPressed,
+    allStudents,
+    setAllStudents,
+    setIdRow,
+  } = useContext(storeValues);
   const navigate = useNavigate();
-
 
   const columns = [
     // { field: "id", headerName: "ID" },
@@ -159,13 +164,20 @@ export default function Student(props) {
           <Outlet></Outlet>
         ) : (
           <>
+            <div style={{width:"100%"}}>
             <DataGrid
-              sx={{ width: isCollapsed ? "99%" : "99%" }}
+              // sx={{ width: isCollapsed ? "99%" : "99%" }}
               checkboxSelection
               rows={allStudents}
               columns={columns}
               components={{ Pagination: CustomPagination }}
+              initialState={{
+                pagination: {
+                  paginationModel: { pageSize: 10, page: 0 },
+                },
+              }}
             />
+            </div>
           </>
         )}
       </Box>
