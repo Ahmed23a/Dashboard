@@ -145,7 +145,7 @@ export default function QuestionsBank() {
   return (
     <>
       <Box>
-        <Dropdown
+        {/* <Dropdown
           placeholder="اختر السنة الدراسية"
           options={options1}
           onChange={(value) => optionsSelection(value.value)}
@@ -159,7 +159,7 @@ export default function QuestionsBank() {
           // options={['اللغة العربية', 'اللغة الانجليزية', 'الرياضيات',"فيزياء","كيمياء"]}
           // options={['اللغة العربية', 'اللغة الانجليزية', 'جغرافيا',"تاريخ","فرنسي"]}
         />
-        <Dropdown placeholder="اختر الدرس" options={optionsLessons} />
+        <Dropdown placeholder="اختر الدرس" options={optionsLessons} /> */}
 
         <Box m="20px">
           <Header title="بنك الاسئلة" subtitle="جميع الاسئلة" />

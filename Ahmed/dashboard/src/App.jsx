@@ -30,6 +30,7 @@ import StoreValuesProvider from "./Store";
 import QuestionView from "./scenes/QuestionsBank/QuestionView";
 import QuestionCreate from "./scenes/QuestionsBank/QuestionCreate";
 import UpdateQuestion from "./scenes/QuestionsBank/UpdatQuestion";
+import Profile from "./scenes/Profile/Profile";
 
 
 
@@ -90,6 +91,7 @@ function App() {
                       <Route path="Geography" element={<Geography />} />
                       <Route path="Line" element={<Line />} />
                       <Route path="Calendar" element={<Calendar />} />
+                      <Route path="Profile" element={<Profile />} /> 
                       <Route
                         path="*"
                         element={

@@ -119,21 +119,25 @@ export default function Sidebar() {
                 >
                   المعلم
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  الملف الشخصي
-                </Typography>
+                <Link to={"/Profile"}></Link>
+
+                {/* <Item
+                  title="الملف الشخصي"
+                  to="/Profile"
+                  selected={selected}
+                  setSelected={setSelected}
+                /> */}
               </Box>
             </Box>
           )}
 
-          <Box  onClick={()=> isPressed ? setIsPressed(!isPressed) : "" } paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="اللوحة الرئيسية"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-              
             />
 
             <Typography
@@ -153,7 +157,6 @@ export default function Sidebar() {
               icon={<AccountBalanceIcon />}
               selected={selected}
               setSelected={setSelected}
-              
             />
             <Item
               title="الطلاب"
@@ -190,7 +193,7 @@ export default function Sidebar() {
             </Typography>
             <Item
               title="الملف الشخصي"
-              to="/Form"
+              to="/Profile"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

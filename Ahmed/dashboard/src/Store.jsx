@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { mockDataTeam } from "./Data/dummyData";
 import { dummyQuestions } from "./Data/dummyQuestions";
-
+import {dummyProfile } from "./Data/dummyProfile";
 export let storeValues = createContext(0);
 
 export default function StoreValuesProvider(props) {
@@ -11,7 +11,8 @@ export default function StoreValuesProvider(props) {
   const [allStudents, setAllStudents] = useState(mockDataTeam);
   const [selectedQuestion, setSelectedQuestion] = useState("");
   const [idRow, setIdRow] = useState(0);
-
+  const [profile, setProfile] = useState(dummyProfile)
+  const [edit, setEdit] = useState(false);
   return (
     <storeValues.Provider
       value={{
@@ -27,6 +28,10 @@ export default function StoreValuesProvider(props) {
         setAllQuestions,
         allStudents,
         setAllStudents,
+        profile,
+        setProfile,
+        edit,
+        setEdit,
       }}
     >
       {props.children}
